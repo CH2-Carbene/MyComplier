@@ -37,8 +37,9 @@ class DFA{
 }
 
 namespace c0_scan{
-using C=char;
+
 struct C0config{
+    using C=char;
     enum State{
         ERR,NUM,ID,IF,ELSE,FOR,WHILE,EQ,GQ,LQ
     };
