@@ -97,7 +97,7 @@ using C_DFA=basic_scan::DFA<C0config>;
 struct C0config{
     using C=char;
     enum State{
-        NIL,ERR,NUM,ID,IF,ELSE,FOR,WHILE,SET,EQ,GQ,LQ,E,G,L,LE,GE,BL,BR,MBL,MBR,GBL,GBR
+        NIL,ERR,NUM,ID,IF,ELSE,FOR,WHILE,SET,EQ,GQ,LQ,E,G,L,LE,GE,BL,BR,MBL,MBR,GBL,GBR,NOT,NOTB,AND,ANDB,OR,ORB
     };
     static char const* sname[];
     using Token=std::pair<State,std::string>;

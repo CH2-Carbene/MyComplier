@@ -150,7 +150,7 @@ char const* C0config::sname[]={
     "NIL","ERR","NUM","ID","IF","ELSE",
     "FOR","WHILE","SET","EQ","GQ","LQ",
     "E","G","L","LE","GE","BL","BR","MBL",
-    "MBR","GBL","GBR"
+    "MBR","GBL","GBR","NOT","NOTB","AND","ANDB","OR","ORB"
 };
 C0config::ScanList C0config::reservedList={
     {IF,"if"},
@@ -160,6 +160,6 @@ C0config::ScanList C0config::reservedList={
 };
 C0config::ScanMap C0config::reservedMap=make_map(zip(second(reservedList),first(reservedList)));
 C0config::ScanList C0config::signs=
-    zip(std::vector<State>{SET,E,L,G,LE,GE,BL,BR,MBL,MBR,GBL,GBR},
-    std::vector<std::string>{"=","==","<",">","<=","(",")","[","]","{","}"});
+    zip(std::vector<State>{SET,E,L,G,LE,GE,BL,BR,MBL,MBR,GBL,GBR,NOT,NOTB,AND,ANDB,OR,ORB},
+    std::vector<std::string>{"=","==","<",">","<=",">=","(",")","[","]","{","}","~","!","&","&&","|","||"});
 };
