@@ -25,7 +25,7 @@ ScanDataLoader<C>::ScanDataLoader(std::ifstream&_fin):fin(_fin){
     nowpos=fin.tellg();
 }
 template<class Config>
-typename DFA<Config>::DFA_Node* DFA<Config>::DFA_Node::get_next(const C&c) 
+typename DFA<Config>::tmpNode DFA<Config>::DFA_Node::get_next(const C&c) 
 {
     for(auto&& [checker,ptrnext]:ruleList){
         if(checker(c))return ptrnext;
@@ -37,9 +37,9 @@ template<class Config>
 void DFA<Config>::ins_string(const DFA::Token&t) 
 {
     auto&& [sst,s]=t;
-    DFA_Node* now=rt;
+    tmpNode now=rt;
     for(auto&& c:s){
-        DFA_Node* next=now->get_next(c);
+        tmpNode next=now->get_next(c);
         if(next!=nullptr)now=next;
         else{
             auto next=std::make_unique<DFA_Node>();

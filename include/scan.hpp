@@ -55,16 +55,16 @@ class DFA{
          * @brief Get the next DFA state according to a character
          * 
          * @param c 
-         * @return DFA_Node* 
+         * @return tmpNode 
          */
-        DFA_Node* get_next(const C&c);
+       tmpNode get_next(const C&c);
         
     };
     /**
      * @brief Root node of DFA
      * 
      */
-    DFA_Node* rt;
+    tmpNode rt;
     /**
      * @brief State list of DFA
      * 
