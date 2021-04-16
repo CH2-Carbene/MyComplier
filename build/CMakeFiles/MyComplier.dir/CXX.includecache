@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/base.hpp
+bits/stdc++.h
+../include/bits/stdc++.h
+
+../include/scan.cpp
+scan.hpp
+../include/scan.hpp
+
+../include/scan.hpp
+base.hpp
+../include/base.hpp
+scan.cpp
+../include/scan.cpp
+
+/home/ch2/Documents/Compling_sdb/MyComplier/src/scan_test.cpp
+scan.hpp
+/home/ch2/Documents/Compling_sdb/MyComplier/src/scan.hpp
+

@@ -1,0 +1,1 @@
+/bin/g++-9  -g  -rdynamic CMakeFiles/MyComplier.dir/src/scan_test.o  -o MyComplier   -L/home/ch2/Documents/Compling_sdb/MyComplier/library 

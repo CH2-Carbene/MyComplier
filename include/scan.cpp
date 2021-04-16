@@ -60,7 +60,7 @@ void DFA<Config>::ins_string(const DFA::Token&t)
 template<class Config>
 DFA<Config>::DFA() 
 {
-    stateList.emplace(std::make_unique<DFA_Node>());
+    stateList.emplace_back(std::make_unique<DFA_Node>());
     rt=stateList[0].get();
     Config::init(*this);
 }
@@ -69,15 +69,16 @@ DFA<Config>::DFA()
 template<class Config>
 typename DFA<Config>::Token DFA<Config>::get_token(ScanDataLoader<C>&dl) const
 {
-    DFA_Node* now=rt,q=nullptr;
+    tmpNode now=rt,q=nullptr;
     std::string ts;
     int lap=0;
+    while(Config::isblank(dl.try_get()))dl.lock();dl.rollback();
     while(true){
         C c=dl.try_get();ts.push_back(c);
         now=now->get_next(c);
         if(now==nullptr){
             dl.rollback();
-            if(q)return Token(q->st,ts.substr(lap));
+            if(q)return Config::confirm_token(Token(q->st,ts.substr(0,lap)));
             else return Token(State::ERR,"");
         }
         else if(now->st!=State::NIL){
@@ -87,7 +88,6 @@ typename DFA<Config>::Token DFA<Config>::get_token(ScanDataLoader<C>&dl) const
         }
     };
 }
-
 }
 
 namespace c0_scan{
@@ -99,11 +99,14 @@ void C0config::init(C_DFA&dfa)
     reco_id(dfa);
 }
 
+bool C0config::isblank(C c) 
+{
+    return c==' '||c=='\r'||c=='\n'||c=='\t';
+}
+
 void C0config::reco_blank(C_DFA&dfa) 
 {
-    dfa.rt->ruleList.emplace_back([](C c){
-        return c==' '||c=='\r'||c=='\n'||c=='\t';
-    },dfa.rt);
+    dfa.rt->ruleList.emplace_back(isblank,dfa.rt);
 }
 
 void C0config::reco_numbers(C_DFA&dfa) 
@@ -135,14 +138,28 @@ void C0config::reco_id(C_DFA&dfa)
     dfa.stateList.emplace_back(std::move(id_state));
 }
 
+C0config::Token C0config::confirm_token(const Token&t) 
+{
+    auto&& [sst,s]=t;
+    if(reservedMap.find(s)==reservedMap.end())return t;
+    else return Token(reservedMap[s],s);
+}
 
+using namespace arrop;
+char const* C0config::sname[]={
+    "NIL","ERR","NUM","ID","IF","ELSE",
+    "FOR","WHILE","SET","EQ","GQ","LQ",
+    "E","G","L","LE","GE","BL","BR","MBL",
+    "MBR","GBL","GBR"
+};
 C0config::ScanList C0config::reservedList={
     {IF,"if"},
     {ELSE,"else"},
     {FOR,"for"},
     {WHILE,"while"}
 };
+C0config::ScanMap C0config::reservedMap=make_map(zip(second(reservedList),first(reservedList)));
 C0config::ScanList C0config::signs=
     zip(std::vector<State>{SET,E,L,G,LE,GE,BL,BR,MBL,MBR,GBL,GBR},
     std::vector<std::string>{"=","==","<",">","<=","(",")","[","]","{","}"});
-}
+};

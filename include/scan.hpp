@@ -45,11 +45,10 @@ class DFA{
     using Token=typename Config::Token;
 
     using ptrNode=std::unique_ptr<DFA_Node>;
-    
+    using tmpNode=DFA_Node*;
     struct DFA_Node{
         using Checker=std::function<bool(C)>;
-        using ptrNext=DFA_Node*;
-        using Rule=std::pair<Checker,ptrNext>;
+        using Rule=std::pair<Checker,tmpNode>;
         std::vector<Rule>ruleList;
         State st=State::NIL;
         /**
@@ -100,14 +99,22 @@ struct C0config{
     enum State{
         NIL,ERR,NUM,ID,IF,ELSE,FOR,WHILE,SET,EQ,GQ,LQ,E,G,L,LE,GE,BL,BR,MBL,MBR,GBL,GBR
     };
+    static char const* sname[];
     using Token=std::pair<State,std::string>;
-    using ScanList=std::vector<C_DFA::Token>;
+    using ScanList=std::vector<Token>;
+    using ScanMap=std::map<std::string,State>;
     static ScanList reservedList;
+    static ScanMap reservedMap;
     static ScanList signs;
-    void init(C_DFA&dfa);
-    void reco_blank(C_DFA&dfa);
-    void reco_numbers(C_DFA&dfa);
-    void reco_signs(C_DFA&dfa);
-    void reco_id(C_DFA&dfa);
+
+    static void init(C_DFA&dfa);
+    static bool isblank(C c);
+    static void reco_blank(C_DFA&dfa);
+    static void reco_numbers(C_DFA&dfa);
+    static void reco_signs(C_DFA&dfa);
+    static void reco_id(C_DFA&dfa);
+    static Token confirm_token(const Token&t);
 };
 }
+
+#include "scan.cpp"

@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/home/ch2/Documents/Compling_sdb/MyComplier/build",
+  "command": "/bin/g++-9   -I/home/ch2/Documents/Compling_sdb/MyComplier/include  -g   -std=gnu++17 -o CMakeFiles/MyComplier.dir/src/scan_test.o -c /home/ch2/Documents/Compling_sdb/MyComplier/src/scan_test.cpp",
+  "file": "/home/ch2/Documents/Compling_sdb/MyComplier/src/scan_test.cpp"
+}
+]

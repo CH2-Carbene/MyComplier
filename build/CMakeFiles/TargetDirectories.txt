@@ -1,0 +1,3 @@
+/home/ch2/Documents/Compling_sdb/MyComplier/build/CMakeFiles/rebuild_cache.dir
+/home/ch2/Documents/Compling_sdb/MyComplier/build/CMakeFiles/edit_cache.dir
+/home/ch2/Documents/Compling_sdb/MyComplier/build/CMakeFiles/MyComplier.dir
